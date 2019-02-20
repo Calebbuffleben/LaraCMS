@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Role;
-use App\Permission;
 use Gate;
 
 class RoleController extends Controller
@@ -13,9 +11,9 @@ class RoleController extends Controller
     protected $role;
     protected $permission;
    
-    public function __construct(Role $role, Permission $permission){
-    	$this->role = $role;
-        $this->permission = $permission;
+    public function __construct(){
+    	$this->role = app('role');
+        $this->permission = app('permission');
     }
 
     public function index(){

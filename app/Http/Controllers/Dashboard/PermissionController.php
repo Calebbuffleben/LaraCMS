@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Permission;
-use App\Role;
 use Gate;
 
 class PermissionController extends Controller
@@ -13,9 +11,9 @@ class PermissionController extends Controller
     protected $permission;
     protected $role;
    
-    public function __construct(Permission $permission, Role $role){
-    	$this->permission = $permission;
-        $this->role = $role;
+    public function __construct(){
+    	$this->permission = app('permission');
+        $this->role = app('role');
 
         if(Gate::denies('adm'))
             return redirect()->back();

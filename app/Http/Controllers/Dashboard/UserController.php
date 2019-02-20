@@ -5,9 +5,6 @@ namespace App\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
-use App\User;
-use App\Role;
-use Validator;
 use Gate;
 
 class UserController extends Controller
@@ -15,9 +12,9 @@ class UserController extends Controller
     protected $user;
     protected $role;
 
-    public function __construct(User $user, Role $role){
-    	$this->user = $user;
-        $this->role = $role;
+    public function __construct(){
+    	$this->user = app('user');
+        $this->role = app('role');
         $this->middleware('auth');
     }
 
@@ -45,18 +42,6 @@ class UserController extends Controller
     }
 
     public function store (Request $request){
-        /* validator = Validator::make($request->all(), [
-            'passwd' => 'required',
-            'passwdSame' => 'required|same:passwd',
-        ]);
-
-        if ($validator->fails()) {
-            return redirect('rota/qualquer')
-                        ->withErrors($validator)
-                        ->withInput();
-        } */
-        
-
         if($request->password == $request->mine){
             $this->user->name = $request->name;
             $this->user->email = $request->email;

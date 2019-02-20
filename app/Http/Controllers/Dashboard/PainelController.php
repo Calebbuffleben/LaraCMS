@@ -4,10 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-use App\User;
 use App\Post;
-use App\Role;
-use App\Permission;
 
 class PainelController extends Controller
 {
@@ -16,11 +13,11 @@ class PainelController extends Controller
 	protected $role;
 	protected $permission; 
 
-	public function __construct(User $user, Post $post, Role $role, Permission $permission){
-		$this->user = $user;
+	public function __construct(Post $post){
 		$this->post = $post;
-		$this->role = $role;
-		$this->permission = $permission;
+		$this->user = app('user');
+		$this->role = app('role');
+		$this->permission = app('permission');;
 
 		$this->middleware('auth');
 	}
